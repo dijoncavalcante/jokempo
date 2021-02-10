@@ -9,6 +9,8 @@ import android.widget.ImageView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import java.util.Random;
+
 public class MainActivity extends AppCompatActivity {
 
     ImageView jogador1;
@@ -57,11 +59,13 @@ public class MainActivity extends AppCompatActivity {
         aparece.setAnimationListener(new Animation.AnimationListener() {
             @Override
             public void onAnimationStart(Animation animation) {
+                sorteiaJogadaInimigo();
                 jogador2.setVisibility(View.INVISIBLE);
             }
 
             @Override
             public void onAnimationEnd(Animation animation) {
+                verificaJogada();
                 jogador2.setVisibility(View.VISIBLE);
             }
 
@@ -70,6 +74,27 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
+    }
+
+    private void verificaJogada() {
+
+    }
+
+    private void sorteiaJogadaInimigo() {
+        Random random = new Random();
+        int numRanddom = random.nextInt(3);
+        switch (numRanddom) {
+            case 0:
+                jogador2.setImageResource(R.drawable.pedra);
+                break;
+            case 1:
+                jogador2.setImageResource(R.drawable.papel);
+                break;
+            case 2:
+                jogador2.setImageResource(R.drawable.tesoura);
+                break;
+        }
+
     }
 
 
