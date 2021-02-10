@@ -2,6 +2,8 @@ package com.dijon.jokempo;
 
 import android.os.Bundle;
 import android.view.View;
+import android.view.animation.AlphaAnimation;
+import android.view.animation.Animation;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 
@@ -14,6 +16,8 @@ public class MainActivity extends AppCompatActivity {
     ImageButton botaoPedra;
     ImageButton botaoPapel;
     ImageButton botaoTesura;
+    Animation some;
+    Animation aparece;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,6 +29,47 @@ public class MainActivity extends AppCompatActivity {
         botaoPedra = findViewById(R.id.botaoPedra);
         botaoPapel = findViewById(R.id.botaoPapel);
         botaoTesura = findViewById(R.id.botaoTesoura);
+
+        some = new AlphaAnimation(1, 0);
+        aparece = new AlphaAnimation(0, 1);
+
+        some.setDuration(1500);
+        aparece.setDuration(100);
+
+        some.setAnimationListener(new Animation.AnimationListener() {
+            @Override
+            public void onAnimationStart(Animation animation) {
+                jogador2.setVisibility(View.VISIBLE);
+            }
+
+            @Override
+            public void onAnimationEnd(Animation animation) {
+                jogador2.setVisibility(View.INVISIBLE);
+                jogador2.startAnimation(aparece);
+            }
+
+            @Override
+            public void onAnimationRepeat(Animation animation) {
+
+            }
+        });
+
+        aparece.setAnimationListener(new Animation.AnimationListener() {
+            @Override
+            public void onAnimationStart(Animation animation) {
+                jogador2.setVisibility(View.INVISIBLE);
+            }
+
+            @Override
+            public void onAnimationEnd(Animation animation) {
+                jogador2.setVisibility(View.VISIBLE);
+            }
+
+            @Override
+            public void onAnimationRepeat(Animation animation) {
+
+            }
+        });
     }
 
 
@@ -42,5 +87,6 @@ public class MainActivity extends AppCompatActivity {
                 break;
         }
         jogador2.setImageResource(R.drawable.interrogacao);
+        jogador2.startAnimation(some);
     }
 }
