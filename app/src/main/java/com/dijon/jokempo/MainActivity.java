@@ -6,6 +6,7 @@ import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -20,6 +21,8 @@ public class MainActivity extends AppCompatActivity {
     ImageButton botaoTesura;
     Animation some;
     Animation aparece;
+    int jogada1 = 0;
+    int jogada2 = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,6 +40,7 @@ public class MainActivity extends AppCompatActivity {
 
         some.setDuration(1500);
         aparece.setDuration(100);
+
 
         some.setAnimationListener(new Animation.AnimationListener() {
             @Override
@@ -77,7 +81,15 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void verificaJogada() {
-
+        if (jogada1 == jogada2) {
+            Toast.makeText(this, "Empate!", Toast.LENGTH_SHORT).show();
+        }
+        if ((jogada1 == 1 && jogada2 == 3) || (jogada1 == 2 && jogada2 == 1) || (jogada1 == 3 && jogada2 == 2)) {
+            Toast.makeText(this, "Ganhei", Toast.LENGTH_SHORT).show();
+        }
+        if ((jogada2 == 1 && jogada1 == 3) || (jogada2 == 2 && jogada1 == 1) || (jogada2 == 3 && jogada1 == 2)) {
+            Toast.makeText(this, "Perdi", Toast.LENGTH_SHORT).show();
+        }
     }
 
     private void sorteiaJogadaInimigo() {
@@ -86,12 +98,15 @@ public class MainActivity extends AppCompatActivity {
         switch (numRanddom) {
             case 0:
                 jogador2.setImageResource(R.drawable.pedra);
+                jogada2 = 1;
                 break;
             case 1:
                 jogador2.setImageResource(R.drawable.papel);
+                jogada2 = 2;
                 break;
             case 2:
                 jogador2.setImageResource(R.drawable.tesoura);
+                jogada2 = 3;
                 break;
         }
 
@@ -103,12 +118,15 @@ public class MainActivity extends AppCompatActivity {
         switch (view.getId()) {
             case (R.id.botaoPedra):
                 jogador1.setImageResource(R.drawable.pedra);
+                jogada1 = 1;
                 break;
             case (R.id.botaoPapel):
                 jogador1.setImageResource(R.drawable.papel);
+                jogada1 = 2;
                 break;
             case (R.id.botaoTesoura):
                 jogador1.setImageResource(R.drawable.tesoura);
+                jogada1 = 3;
                 break;
         }
         jogador2.setImageResource(R.drawable.interrogacao);
