@@ -1,5 +1,6 @@
 package com.dijon.jokempo;
 
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.view.View;
 import android.view.animation.AlphaAnimation;
@@ -23,11 +24,14 @@ public class MainActivity extends AppCompatActivity {
     Animation aparece;
     int jogada1 = 0;
     int jogada2 = 0;
+    MediaPlayer mediaPlayer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        mediaPlayer = MediaPlayer.create(MainActivity.this, R.raw.alex_play);
 
         jogador1 = findViewById(R.id.jogador1);
         jogador2 = findViewById(R.id.jogador2);
@@ -114,6 +118,7 @@ public class MainActivity extends AppCompatActivity {
 
 
     public void tocouBotao(View view) {
+        tocaSom();
         jogador1.setScaleX(-1);
         switch (view.getId()) {
             case (R.id.botaoPedra):
@@ -131,5 +136,11 @@ public class MainActivity extends AppCompatActivity {
         }
         jogador2.setImageResource(R.drawable.interrogacao);
         jogador2.startAnimation(some);
+    }
+
+    public void tocaSom() {
+        if (mediaPlayer != null) {
+            mediaPlayer.start();
+        }
     }
 }
